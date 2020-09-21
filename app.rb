@@ -1,4 +1,5 @@
 require "sinatra/base"
+require "./lib/bookmarks"
 
 class Manager < Sinatra::Base
   get "/" do
