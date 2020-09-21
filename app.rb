@@ -6,6 +6,7 @@ class Manager < Sinatra::Base
   end
 
   get "/bookmarks" do
+    $bookmarks = Bookmarks.new
     erb :bookmarks
   end
 

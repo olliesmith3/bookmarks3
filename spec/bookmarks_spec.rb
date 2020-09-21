@@ -1,3 +1,5 @@
+require "bookmarks"
+
 describe Bookmarks do
   describe "#all" do
     it "returns all bookmarks stored by user" do
