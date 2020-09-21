@@ -1,3 +1,5 @@
+require "pg"
+
 class Bookmarks
   DEFAULT_BOOKMARKS = ["https://www.bbc.com", "https://www.google.com", "https://www.cats.com", "https://www.reddit.com"]
 
@@ -6,6 +8,8 @@ class Bookmarks
   end
 
   def all
-    return @stored_bookmarks.join("\n")
+    connection = PG.connect(dbname: "bookmark_manager")
+    result = connection.exec("SELECT * FROM bookmarks;")
+    result.map { |bookmark| bookmark["url"] }
   end
 end
