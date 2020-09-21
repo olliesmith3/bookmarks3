@@ -17,4 +17,3 @@ Tag bookmarks into categories
 Filter bookmarks by tag
 Users are restricted to manage only their own bookmarks
 
-> 

@@ -1,7 +1,13 @@
-require 'sinatra/base'
+require "sinatra/base"
 
 class Manager < Sinatra::Base
+  get "/" do
+    "Hello World"
+  end
 
-  run! if app_file == $0 
+  get "/bookmarks" do
+    erb :bookmarks
+  end
 
+  run! if app_file == $0
 end
