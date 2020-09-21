@@ -1,0 +1,20 @@
+
+User Stories
+
+-  Show a list of bookmarks
+
+    As a user <br>
+    So that I can see my favourite websites that I have bookmarked <br>
+    I would like to see a list of my bookmarks
+ 
+ ![List of book marks domain model](https://imgur.com/2SWMca7.jpg)
+
+- Add new bookmarks
+- Delete bookmarks
+- Update bookmarks
+Comment on bookmarks
+Tag bookmarks into categories
+Filter bookmarks by tag
+Users are restricted to manage only their own bookmarks
+
+> 
