@@ -7,9 +7,12 @@ class Bookmarks
     @stored_bookmarks = array_of_bookmarks
   end
 
-  def all
-    connection = PG.connect(dbname: "bookmark_manager")
+  def self.all(database = "bookmark_manager")
+    connection = PG.connect(dbname: database)
     result = connection.exec("SELECT * FROM bookmarks;")
     result.map { |bookmark| bookmark["url"] }
+  end
+
+  def self.add(database = "bookmark_manager")
   end
 end
