@@ -7,12 +7,24 @@ class Bookmarks
     @stored_bookmarks = array_of_bookmarks
   end
 
-  def self.all(database = "bookmark_manager")
-    connection = PG.connect(dbname: database)
+  def self.all
+    if ENV["ENVIRONMENT"] == "test"
+      connection = PG.connect(dbname: "bookmark_manager_test")
+    else
+      connection = PG.connect(dbname: "bookmark_manager")
+    end
+
     result = connection.exec("SELECT * FROM bookmarks;")
     result.map { |bookmark| bookmark["url"] }
   end
 
-  def self.add(database = "bookmark_manager")
+  def self.add(bookmark_url)
+    if ENV["ENVIRONMENT"] == "test"
+      connection = PG.connect(dbname: "bookmark_manager_test")
+    else
+      connection = PG.connect(dbname: "bookmark_manager")
+    end
+
+    connection.exec("INSERT INTO bookmarks (url) VALUES ('#{bookmark_url}');")
   end
 end

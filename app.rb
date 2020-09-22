@@ -3,11 +3,11 @@ require "./lib/bookmarks"
 
 class Manager < Sinatra::Base
   get "/" do
-    "Hello World"
+    erb :index
   end
 
   get "/bookmarks" do
-    $bookmarks = Bookmarks.new
+    @bookmarks = Bookmarks.all
     erb :bookmarks
   end
 
