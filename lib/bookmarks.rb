@@ -1,11 +1,11 @@
 require "pg"
 
 class Bookmarks
-  DEFAULT_BOOKMARKS = ["https://www.bbc.com", "https://www.google.com", "https://www.cats.com", "https://www.reddit.com"]
+  #DEFAULT_BOOKMARKS = ["https://www.bbc.com", "https://www.google.com", "https://www.cats.com", "https://www.reddit.com"]
 
-  def initialize(array_of_bookmarks = DEFAULT_BOOKMARKS)
-    @stored_bookmarks = array_of_bookmarks
-  end
+  #def initialize(array_of_bookmarks = DEFAULT_BOOKMARKS)
+  #  @stored_bookmarks = array_of_bookmarks
+  #end
 
   def self.all
     if ENV["ENVIRONMENT"] == "test"

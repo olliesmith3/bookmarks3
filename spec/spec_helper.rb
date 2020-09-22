@@ -12,6 +12,7 @@ require File.join(File.dirname(__FILE__), "..", "app.rb")
 require "capybara"
 require "capybara/rspec"
 require "rspec"
+require_relative "./features/web_helpers.rb"
 
 # Given that it is always loaded, you are encouraged to keep this file as
 # light-weight as possible. Requiring heavyweight dependencies from this file
@@ -25,6 +26,9 @@ Capybara.app = Manager
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.before(:each) do
+    clear_table
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

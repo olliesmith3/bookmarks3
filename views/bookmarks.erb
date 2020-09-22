@@ -1,1 +1,7 @@
-<%= @bookmarks%>
+<%= @bookmarks%><br>
+
+<form action="/add_bookmark" method="post">
+<label for="url">Please enter url for bookmark</label><br>
+<input type="text" name="url">
+<input type="submit" value="Add Bookmark">
+</form>

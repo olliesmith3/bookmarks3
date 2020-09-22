@@ -6,8 +6,12 @@ User Stories
     As a user <br>
     So that I can see my favourite websites that I have bookmarked <br>
     I would like to see a list of my bookmarks
- 
+
  ![List of book marks domain model](https://imgur.com/2SWMca7.jpg)
+
+   As a user <br>
+   So that I can revisit my favourite websites <br>
+   I would like to add bookmarks to a list of bookmarks
 
 Database Setup:
 

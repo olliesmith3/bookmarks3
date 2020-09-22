@@ -2,7 +2,7 @@ require "bookmarks"
 require "./spec/features/web_helpers"
 
 describe Bookmarks do
-  describe "#all" do
+  describe "#add" do
     it "returns all bookmarks stored by user" do
       clear_table()
       Bookmarks.add("https://www.bbc.com")
