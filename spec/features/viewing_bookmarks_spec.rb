@@ -8,7 +8,7 @@ feature "View bookmarks" do
     fill_in :title, with: "My Favourite Cats"
     fill_in :url, with: "https://www.cats.com"
     click_button "Add Bookmark"
-    expect(page).to have_content "https://www.bbc.com"
-    expect(page).to have_content "https://www.cats.com"
+    expect(page).to have_link('The BBC Website', href: 'https://www.bbc.com')
+    expect(page).to have_link('My Favourite Cats', href: 'https://www.cats.com')
   end
 end

@@ -1,11 +1,14 @@
 require "pg"
 
-class Bookmarks
-  #DEFAULT_BOOKMARKS = ["https://www.bbc.com", "https://www.google.com", "https://www.cats.com", "https://www.reddit.com"]
+class Bookmark
 
-  #def initialize(array_of_bookmarks = DEFAULT_BOOKMARKS)
-  #  @stored_bookmarks = array_of_bookmarks
-  #end
+  attr_reader :id, :title, :url
+
+  def initialize(id, title, url)
+    @id = id
+    @title = title
+    @url = url
+  end
 
   def self.all
     if ENV["ENVIRONMENT"] == "test"
@@ -15,9 +18,9 @@ class Bookmarks
     end
 
     result = connection.exec("SELECT * FROM bookmarks;")
-    result.map { |bookmark|
-      "<a href='#{bookmark["url"]}'>#{bookmark["title"]}</a><br></br>"
-    }.join(",")
+    result.map { |bookmark| 
+      Bookmark.new(bookmark["id"], bookmark["title"], bookmark["url"])
+    }
   end
 
   def self.add(bookmark_url, bookmark_title)

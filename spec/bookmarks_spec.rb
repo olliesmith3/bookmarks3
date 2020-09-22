@@ -1,14 +1,14 @@
-require "bookmarks"
+require "Bookmark"
 require "./spec/features/web_helpers"
 
-describe Bookmarks do
+describe Bookmark do
   describe "#add" do
-    it "returns all bookmarks stored by user" do
+    it "returns all Bookmark stored by user" do
       clear_table()
-      Bookmarks.add("https://www.bbc.com", "The BBC Website")
-      Bookmarks.add("https://www.cats.com", "My Favourite Cats")
-      expect(Bookmarks.all).to include "https://www.bbc.com"
-      expect(Bookmarks.all).to include "https://www.cats.com"
+      Bookmark.add("https://www.bbc.com", "The BBC Website")
+      Bookmark.add("https://www.cats.com", "My Favourite Cats")
+      expect(Bookmark.all[0].url).to eq "https://www.bbc.com"
+      expect(Bookmark.all[1].url).to eq "https://www.cats.com"
     end
   end
 end

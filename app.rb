@@ -1,5 +1,5 @@
 require "sinatra/base"
-require "./lib/bookmarks"
+require "./lib/bookmark"
 
 class Manager < Sinatra::Base
   get "/" do
@@ -7,13 +7,12 @@ class Manager < Sinatra::Base
   end
 
   get "/bookmarks" do
-    @bookmarks = Bookmarks.all
-    p @bookmarks
+    @bookmarks = Bookmark.all
     erb :bookmarks
   end
 
   post "/add_bookmark" do
-    Bookmarks.add(params[:url], params[:title])
+    Bookmark.add(params[:url], params[:title])
     redirect "/bookmarks"
   end
 
