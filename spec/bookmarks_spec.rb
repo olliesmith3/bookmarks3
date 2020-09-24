@@ -22,11 +22,21 @@ describe Bookmark do
   end
   describe "find_by_id" do
     it "returns a bookmark from the id" do
+      clear_table()
+      bookmark = Bookmark.add("https://www.bbc.com", "The BBC Website")
+      return_value = Bookmark.find_by_id(bookmark.id)
+      expect(return_value.title).to eq "The BBC Website"
+      expect(return_value.url).to eq "https://www.bbc.com"
     end
   end
 
   describe "#update" do
     it "updates a bookmark with new values" do
+      clear_table()
+      bookmark = Bookmark.add("https://www.bbc.com", "The BBC Website")
+      bookmark = Bookmark.update(bookmark.id, "BBC News", "https://www.bbc.com/news")
+      expect(bookmark.title).to eq "BBC News"
+      expect(bookmark.url).to eq "https://www.bbc.com/news"
     end
   end
 end

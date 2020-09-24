@@ -62,6 +62,8 @@ class Bookmark
       connection = PG.connect(dbname: "bookmark_manager")
     end
 
-    connection.exec("UPDATE bookmarks SET url = '#{bookmark_url}', title = '#{bookmark_title}' WHERE id = '#{bookmark_id}';")
+    result = connection.exec("UPDATE bookmarks SET url = '#{bookmark_url}', title = '#{bookmark_title}' WHERE id = '#{bookmark_id}' RETURNING id, title, url;")
+
+    Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
   end
 end
