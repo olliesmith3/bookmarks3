@@ -20,4 +20,13 @@ describe Bookmark do
       Bookmark.delete(bookmark.id)
     end
   end
+  describe "find_by_id" do
+    it "returns a bookmark from the id" do
+    end
+  end
+
+  describe "#update" do
+    it "updates a bookmark with new values" do
+    end
+  end
 end

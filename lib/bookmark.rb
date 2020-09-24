@@ -54,4 +54,14 @@ class Bookmark
     result = connection.exec("SELECT * FROM bookmarks WHERE id = '#{bookmark_id}';")
     Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
   end
+
+  def self.update(bookmark_id, bookmark_title, bookmark_url)
+    if ENV["ENVIRONMENT"] == "test"
+      connection = PG.connect(dbname: "bookmark_manager_test")
+    else
+      connection = PG.connect(dbname: "bookmark_manager")
+    end
+
+    connection.exec("UPDATE bookmarks SET url = '#{bookmark_url}', title = '#{bookmark_title}' WHERE id = '#{bookmark_id}';")
+  end
 end
