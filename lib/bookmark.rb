@@ -43,4 +43,15 @@ class Bookmark
 
     connection.exec("DELETE FROM bookmarks WHERE id = '#{bookmark_id}';")
   end
+
+  def self.find_by_id(bookmark_id)
+    if ENV["ENVIRONMENT"] == "test"
+      connection = PG.connect(dbname: "bookmark_manager_test")
+    else
+      connection = PG.connect(dbname: "bookmark_manager")
+    end
+
+    result = connection.exec("SELECT * FROM bookmarks WHERE id = '#{bookmark_id}';")
+    Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
+  end
 end

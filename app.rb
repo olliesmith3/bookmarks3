@@ -22,5 +22,13 @@ class Manager < Sinatra::Base
     redirect "/bookmarks"
   end
 
+  get "/bookmarks/:id/edit" do
+    @bookmark = Bookmark.find_by_id(params[:id])
+    erb :edit
+  end
+
+  # patch "/bookmarks/:id" do
+  # end
+
   run! if app_file == $0
 end
