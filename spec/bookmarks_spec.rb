@@ -11,4 +11,13 @@ describe Bookmark do
       expect(Bookmark.all[1].url).to eq "https://www.cats.com"
     end
   end
+
+  describe "#delete" do
+    it "checks that bookmarks can be deleted" do
+      clear_table()
+      bookmark = Bookmark.add("https://www.bbc.com", "The BBC Website")
+      Bookmark.add("https://www.cats.com", "My Favourite Cats")
+      Bookmark.delete(bookmark.id)
+    end
+  end
 end

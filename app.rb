@@ -2,6 +2,7 @@ require "sinatra/base"
 require "./lib/bookmark"
 
 class Manager < Sinatra::Base
+  enable :method_override
   get "/" do
     erb :index
   end
@@ -11,8 +12,13 @@ class Manager < Sinatra::Base
     erb :bookmarks
   end
 
-  post "/add_bookmark" do
+  post "/bookmarks/new" do
     Bookmark.add(params[:url], params[:title])
+    redirect "/bookmarks"
+  end
+
+  delete "/bookmarks/:id" do
+    Bookmark.delete(params[:id])
     redirect "/bookmarks"
   end
 
