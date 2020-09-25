@@ -1,9 +1,11 @@
 require "sinatra/base"
 require "./lib/bookmark"
 require "./lib/database_connection"
+require 'sinatra/flash'
 
 class Manager < Sinatra::Base
-  enable :method_override
+  enable :method_override, :sessions
+  register Sinatra::Flash
 
   before do
     if ENV["ENVIRONMENT"] == "test"
@@ -22,8 +24,8 @@ class Manager < Sinatra::Base
     erb :bookmarks
   end
 
-  post "/bookmarks/new" do
-    Bookmark.add(params[:url], params[:title])
+  post "/bookmarks" do
+    flash[:notice] = "You must submit a valid URL." unless Bookmark.add(params[:url], params[:title])
     redirect "/bookmarks"
   end
 

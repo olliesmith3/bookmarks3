@@ -1,5 +1,7 @@
 # require 'database_connection'
 require "pg"
+require 'uri'
+
 
 
 class Bookmark
@@ -12,11 +14,6 @@ class Bookmark
   end
 
   def self.all
-    # if ENV["ENVIRONMENT"] == "test"
-    #   connection = PG.connect(dbname: "bookmark_manager_test")
-    # else
-    #   connection = PG.connect(dbname: "bookmark_manager")
-    # end
 
     result = DatabaseConnection.query("SELECT * FROM bookmarks;")
     result.map { |bookmark|
@@ -25,45 +22,32 @@ class Bookmark
   end
 
   def self.add(bookmark_url, bookmark_title)
-    # if ENV["ENVIRONMENT"] == "test"
-    #   connection = PG.connect(dbname: "bookmark_manager_test")
-    # else
-    #   connection = PG.connect(dbname: "bookmark_manager")
-    # end
-
+    return false unless is_url?(bookmark_url)
     result = DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES ('#{bookmark_url}', '#{bookmark_title}') RETURNING id, title, url;")
 
     Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
   end
 
   def self.delete(bookmark_id)
-    # if ENV["ENVIRONMENT"] == "test"
-    #   connection = PG.connect(dbname: "bookmark_manager_test")
-    # else
-    #   connection = PG.connect(dbname: "bookmark_manager")
-    # end
 
     DatabaseConnection.query("DELETE FROM bookmarks WHERE id = '#{bookmark_id}';")
   end
 
   def self.find_by_id(bookmark_id)
-    # if ENV["ENVIRONMENT"] == "test"
-    #   connection = PG.connect(dbname: "bookmark_manager_test")
-    # else
-    #   connection = PG.connect(dbname: "bookmark_manager")
-    # end
 
     result = DatabaseConnection.query("SELECT * FROM bookmarks WHERE id = '#{bookmark_id}';")
     Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
   end
 
   def self.update(bookmark_id, bookmark_title, bookmark_url)
-    # if ENV["ENVIRONMENT"] == "test"
-    #   connection = PG.connect(dbname: "bookmark_manager_test")
-    # else
-    #   connection = PG.connect(dbname: "bookmark_manager")
-    # end
     result = DatabaseConnection.query("UPDATE bookmarks SET url = '#{bookmark_url}', title = '#{bookmark_title}' WHERE id = '#{bookmark_id}' RETURNING id, title, url;")
     Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
   end
+
+  private 
+
+  def self.is_url?(url)
+    url =~ /\A#{URI::regexp(['http', 'https'])}\z/
+  end
+
 end

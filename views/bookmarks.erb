@@ -17,10 +17,11 @@
   <% end %>
 </ul><br>
 
-<form action="/bookmarks/new" method="post">
+<form action="/bookmarks" method="post">
 <label for="url">Please enter title for bookmark</label> <br></br>
 <input type="text" name="title"><br></br>
 <label for="url">Please enter url for bookmark</label><br></br>
 <input type="text" name="url">
 <input type="submit" value="Add Bookmark">
 </form>
+<%= flash[:notice] %>
