@@ -1,8 +1,18 @@
 require "sinatra/base"
 require "./lib/bookmark"
+require "./lib/database_connection"
 
 class Manager < Sinatra::Base
   enable :method_override
+
+  before do
+    if ENV["ENVIRONMENT"] == "test"
+      DatabaseConnection.setup("bookmark_manager_test")
+    else
+      DatabaseConnection.setup("bookmark_manager")
+    end
+  end
+  
   get "/" do
     erb :index
   end

@@ -1,4 +1,5 @@
 require 'pg'
+# require 'bookmark'
 
 class DatabaseConnection
 
@@ -9,6 +10,8 @@ class DatabaseConnection
   end
 
   def self.query(query)
-    
+    @connection.exec(query)
   end
+
+
 end

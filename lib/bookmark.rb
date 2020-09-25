@@ -12,60 +12,58 @@ class Bookmark
   end
 
   def self.all
-    if ENV["ENVIRONMENT"] == "test"
-      connection = PG.connect(dbname: "bookmark_manager_test")
-    else
-      connection = PG.connect(dbname: "bookmark_manager")
-    end
+    # if ENV["ENVIRONMENT"] == "test"
+    #   connection = PG.connect(dbname: "bookmark_manager_test")
+    # else
+    #   connection = PG.connect(dbname: "bookmark_manager")
+    # end
 
-    result = connection.exec("SELECT * FROM bookmarks;")
+    result = DatabaseConnection.query("SELECT * FROM bookmarks;")
     result.map { |bookmark|
       Bookmark.new(bookmark["id"], bookmark["title"], bookmark["url"])
     }
   end
 
   def self.add(bookmark_url, bookmark_title)
-    if ENV["ENVIRONMENT"] == "test"
-      connection = PG.connect(dbname: "bookmark_manager_test")
-    else
-      connection = PG.connect(dbname: "bookmark_manager")
-    end
+    # if ENV["ENVIRONMENT"] == "test"
+    #   connection = PG.connect(dbname: "bookmark_manager_test")
+    # else
+    #   connection = PG.connect(dbname: "bookmark_manager")
+    # end
 
-    result = connection.exec("INSERT INTO bookmarks (url, title) VALUES ('#{bookmark_url}', '#{bookmark_title}') RETURNING id, title, url;")
+    result = DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES ('#{bookmark_url}', '#{bookmark_title}') RETURNING id, title, url;")
 
     Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
   end
 
   def self.delete(bookmark_id)
-    if ENV["ENVIRONMENT"] == "test"
-      connection = PG.connect(dbname: "bookmark_manager_test")
-    else
-      connection = PG.connect(dbname: "bookmark_manager")
-    end
+    # if ENV["ENVIRONMENT"] == "test"
+    #   connection = PG.connect(dbname: "bookmark_manager_test")
+    # else
+    #   connection = PG.connect(dbname: "bookmark_manager")
+    # end
 
-    connection.exec("DELETE FROM bookmarks WHERE id = '#{bookmark_id}';")
+    DatabaseConnection.query("DELETE FROM bookmarks WHERE id = '#{bookmark_id}';")
   end
 
   def self.find_by_id(bookmark_id)
-    if ENV["ENVIRONMENT"] == "test"
-      connection = PG.connect(dbname: "bookmark_manager_test")
-    else
-      connection = PG.connect(dbname: "bookmark_manager")
-    end
+    # if ENV["ENVIRONMENT"] == "test"
+    #   connection = PG.connect(dbname: "bookmark_manager_test")
+    # else
+    #   connection = PG.connect(dbname: "bookmark_manager")
+    # end
 
-    result = connection.exec("SELECT * FROM bookmarks WHERE id = '#{bookmark_id}';")
+    result = DatabaseConnection.query("SELECT * FROM bookmarks WHERE id = '#{bookmark_id}';")
     Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
   end
 
   def self.update(bookmark_id, bookmark_title, bookmark_url)
-    if ENV["ENVIRONMENT"] == "test"
-      connection = PG.connect(dbname: "bookmark_manager_test")
-    else
-      connection = PG.connect(dbname: "bookmark_manager")
-    end
-
-    result = connection.exec("UPDATE bookmarks SET url = '#{bookmark_url}', title = '#{bookmark_title}' WHERE id = '#{bookmark_id}' RETURNING id, title, url;")
-    p result[0]["title"]
+    # if ENV["ENVIRONMENT"] == "test"
+    #   connection = PG.connect(dbname: "bookmark_manager_test")
+    # else
+    #   connection = PG.connect(dbname: "bookmark_manager")
+    # end
+    result = DatabaseConnection.query("UPDATE bookmarks SET url = '#{bookmark_url}', title = '#{bookmark_title}' WHERE id = '#{bookmark_id}' RETURNING id, title, url;")
     Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
   end
 end

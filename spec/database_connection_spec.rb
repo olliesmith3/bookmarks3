@@ -14,8 +14,8 @@ describe DatabaseConnection do
       DatabaseConnection.setup('bookmark_manager_test')
       DatabaseConnection.query('TRUNCATE TABLE bookmarks;')
       result = DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES ('https://www.bbc.co.uk', 'BBC Homepage') RETURNING url, title;")
-      p result[0]["title"]
-      #expect(DatabaseConnection.query("SELECT * FROM bookmarks;")).to eq hash
+      expect(result[0]["title"]).to eq 'BBC Homepage'
+      expect(result[0]["url"]).to eq 'https://www.bbc.co.uk'
     end
   end
 end
