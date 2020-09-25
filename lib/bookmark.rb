@@ -1,4 +1,4 @@
-require 'database_connection'
+# require 'database_connection'
 require "pg"
 
 
@@ -65,7 +65,7 @@ class Bookmark
     end
 
     result = connection.exec("UPDATE bookmarks SET url = '#{bookmark_url}', title = '#{bookmark_title}' WHERE id = '#{bookmark_id}' RETURNING id, title, url;")
-
+    p result[0]["title"]
     Bookmark.new(result[0]["id"], result[0]["title"], result[0]["url"])
   end
 end
